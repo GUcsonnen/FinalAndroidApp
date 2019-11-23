@@ -1,7 +1,12 @@
+/**
+ * Color icons made by https://www.flaticon.com/authors/freepik
+ */
+
 package com.example.chloeandcarolinesawesomeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -42,6 +47,19 @@ public class PaintingActivity extends AppCompatActivity {
                 return true;
             case R.id.clear:
                 paintView.clear();
+                return true;
+            case R.id.color_red:
+                paintView.changeColor(Color.RED);
+                return true;
+            case R.id.color_blue:
+                paintView.changeColor(Color.BLUE);
+                return true;
+            case R.id.color_black:
+                paintView.changeColor(Color.BLACK);
+                return true;
+            case R.id.eraser:
+                paintView.changeColor(Color.WHITE);
+                paintView.normal();
                 return true;
         }
 

@@ -91,6 +91,11 @@ public class PaintView extends View {
         invalidate();
     }
 
+    public void changeColor(int color) {
+        //mPaint.setColor(color);
+        currentColor = color;
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.save();

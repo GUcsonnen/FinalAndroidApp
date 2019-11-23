@@ -2,23 +2,50 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/normal"
+        android:title="Normal style"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/emboss"
-        android:title="Add Item"
-        android:icon="@android:drawable/ic_menu_add"
-        app:showAsAction="ifRoom"
+        android:title="Emboss style"
+        app:showAsAction="never"
         />
 
     <item
         android:id="@+id/blur"
-        android:title="Preferences"
-        android:icon="@android:drawable/ic_menu_preferences"
-        app:showAsAction="ifRoom"
+        android:title="Blur style"
+        app:showAsAction="never"
         />
 
     <item
+        android:id="@+id/color_red"
+        android:title="Red"
+        android:icon="@drawable/red_circle"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/color_blue"
+        android:title="Blue"
+        android:icon="@drawable/blue_circle"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/color_black"
+        android:title="Black"
+        android:icon="@drawable/black_circle"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/eraser"
+        android:title="Eraser"
+        android:icon="@drawable/eraser"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/clear"
-        android:title="About App"
-        app:showAsAction="never"
+        android:title="Clear"
+        android:icon="@android:drawable/ic_menu_delete"
+        app:showAsAction="ifRoom"
         />
 
 </menu>
