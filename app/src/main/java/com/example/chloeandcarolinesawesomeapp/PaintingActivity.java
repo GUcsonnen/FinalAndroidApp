@@ -6,6 +6,7 @@ package com.example.chloeandcarolinesawesomeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -24,7 +25,7 @@ public class PaintingActivity extends AppCompatActivity {
     private PaintView paintView;
     private FingerPath fingerPath;
     String TAG = "PAINTINGACTIVITY";
-    int drawingNumber = 1;
+    int NOTE_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +41,13 @@ public class PaintingActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PaintingActivity.this, MainActivity.class);
+                Intent intent = new Intent();
                 Canvas myCanvas = paintView.getCanvas();
-
                 intent.putExtra("Canvas", myCanvas.toString());
-                intent.putExtra("CanvasName", newName());
-                startActivity(intent);
+                setResult(Activity.RESULT_OK, intent);
+                PaintingActivity.this.finish();
             }
         });
-    }
-
-    public String newName(){
-        String name = "Drawing: " + drawingNumber;
-        drawingNumber++;
-        return name;
     }
 
     @Override
