@@ -5,10 +5,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ActionMode;
@@ -29,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private PaintView paintView;
     int drawingNumber = 1;
     static final int NOTE_CODE = 1;
-    List<String> items = new ArrayList<>();
+    List<byte[]> items = new ArrayList<>();
     String TAG = "MainActivity";
-    private ArrayAdapter<String> arrayAdapter;
+    private ArrayAdapter<byte[]> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,15 +147,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == NOTE_CODE && resultCode == Activity.RESULT_OK){
-            Log.d(TAG, "in on activity if");
+            try {
+                items.add(data.getByteArrayExtra("Bitmap"));
+                //String myNewName = newName();
+                //items.add(myNewName);
+                //Log.d(TAG, "in on activity if " + myNewName);
 
-            String[] message = data.getStringArrayExtra("canvas");
-            String myNewName = newName();
-            items.add(myNewName);
-            Log.d(TAG, "in on activity if " + myNewName);
-
-            arrayAdapter.notifyDataSetChanged();
-
+                arrayAdapter.notifyDataSetChanged();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

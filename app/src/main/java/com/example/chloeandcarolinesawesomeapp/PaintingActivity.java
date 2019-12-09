@@ -7,12 +7,18 @@ package com.example.chloeandcarolinesawesomeapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.LruCache;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,9 +27,12 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+
 public class PaintingActivity extends AppCompatActivity {
     private PaintView paintView;
     private FingerPath fingerPath;
+    private SharedPreferences sharedPreferences;
     String TAG = "PAINTINGACTIVITY";
     int NOTE_CODE = 1;
 
@@ -36,14 +45,19 @@ public class PaintingActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         paintView.init(metrics);
 
+        sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+
         Button backButton = (Button)findViewById(R.id.saveButton);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                Canvas myCanvas = paintView.getCanvas();
-                intent.putExtra("Canvas", myCanvas.toString());
+                Bitmap b = paintView.getmBitmap();
+                // Compress the Bitmap into a byteStream
+                ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+                b.compress(Bitmap.CompressFormat.PNG, 50, byteStream);
+                intent.putExtra("Bitmap", byteStream.toByteArray());
                 setResult(Activity.RESULT_OK, intent);
                 PaintingActivity.this.finish();
             }

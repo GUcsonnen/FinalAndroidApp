@@ -182,6 +182,10 @@ public class PaintView extends View {
         //this.mCanvas = mCanvas;
         return mCanvas;
     }
+
+    public Bitmap getmBitmap() {
+        return mBitmap;
+    }
 }
 
 //implements serializable
