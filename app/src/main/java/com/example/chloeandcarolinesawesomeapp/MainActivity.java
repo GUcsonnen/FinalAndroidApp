@@ -1,12 +1,16 @@
 package com.example.chloeandcarolinesawesomeapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,30 +28,21 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private PaintView paintView;
     int drawingNumber = 1;
-
+    static final int NOTE_CODE = 1;
+    List<String> items = new ArrayList<>();
+    String TAG = "MainActivity";
+    private ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         final ListView listView = new ListView(this);
-        final String noteTitle = "";
-        final String noteBody = "";
-        final String spinnerSelection = "";
 
         setContentView(listView);
 
-        List<String> items = new ArrayList<>();
-
-        Intent intentRecieve = getIntent();
-        String[] message = intentRecieve.getStringArrayExtra("canvas");
-       // String name = intentRecieve.getStringExtra("canvasName");
-        if(intentRecieve != null) {
-            items.add(newName());
-        }
-
         // create an array adapter
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
+        arrayAdapter = new ArrayAdapter<>(MainActivity.this,
                 android.R.layout.simple_list_item_activated_1,
                 items);
         listView.setAdapter(arrayAdapter);
@@ -85,9 +80,6 @@ public class MainActivity extends AppCompatActivity {
                         String temp = listView.getCheckedItemPositions().toString();
                         Toast.makeText(MainActivity.this, temp, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, PaintingActivity.class);
-                        intent.putExtra("title", noteTitle);
-                        intent.putExtra("body", noteBody);
-                        intent.putExtra("spinnerSelection", spinnerSelection);
                         startActivity(intent);
                         actionMode.finish();
                         return true;
@@ -107,9 +99,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainActivity.this, PaintingActivity.class);
-                intent.putExtra("title", noteTitle);
-                intent.putExtra("body", noteBody);
-                intent.putExtra("spinnerSelection", spinnerSelection);
                 startActivity(intent);
             }
         });
@@ -118,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public String newName(){
-        String name = "Drawing: " + drawingNumber;
+        String name = "My Masterpiece: " + drawingNumber;
         drawingNumber++;
         return name;
     }
@@ -147,7 +136,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void startPaintingActivity() {
         Intent intent = new Intent(this, PaintingActivity.class);
-        startActivity(intent);
+        this.startActivityForResult(intent, NOTE_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == NOTE_CODE && resultCode == Activity.RESULT_OK){
+            Log.d(TAG, "in on activity if");
+
+            String[] message = data.getStringArrayExtra("canvas");
+            String myNewName = newName();
+            items.add(myNewName);
+            Log.d(TAG, "in on activity if " + myNewName);
+
+            arrayAdapter.notifyDataSetChanged();
+
+        }
     }
 }
 
