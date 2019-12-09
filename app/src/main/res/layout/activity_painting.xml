@@ -2,15 +2,27 @@
 <GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:id="@+id/activity_painting"
-
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:columnCount="1"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save" />
+        <Button
+            android:id="@+id/drawRed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 
     <com.example.chloeandcarolinesawesomeapp.PaintView
@@ -18,15 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-<<<<<<< HEAD
 </GridLayout>
-=======
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save" />
 
-</RelativeLayout>
->>>>>>> dafb4be71b9cfc8f6262523b1ac4ab5331739706
+
+
 
