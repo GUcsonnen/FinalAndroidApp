@@ -6,15 +6,25 @@ package com.example.chloeandcarolinesawesomeapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.Toast;
 
 public class PaintingActivity extends AppCompatActivity {
     private PaintView paintView;
+    private FingerPath fingerPath;
+    String TAG = "PAINTINGACTIVITY";
+    int drawingNumber = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +34,26 @@ public class PaintingActivity extends AppCompatActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         paintView.init(metrics);
+
+        Button backButton = (Button)findViewById(R.id.saveButton);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PaintingActivity.this, MainActivity.class);
+                Canvas myCanvas = paintView.getCanvas();
+
+                intent.putExtra("Canvas", myCanvas.toString());
+                intent.putExtra("CanvasName", newName());
+                startActivity(intent);
+            }
+        });
+    }
+
+    public String newName(){
+        String name = "Drawing: " + drawingNumber;
+        drawingNumber++;
+        return name;
     }
 
     @Override
@@ -66,4 +96,6 @@ public class PaintingActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
+
+
 }

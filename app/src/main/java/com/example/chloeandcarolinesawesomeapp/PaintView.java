@@ -1,5 +1,6 @@
 package com.example.chloeandcarolinesawesomeapp;
 
+import android.app.AppComponentFactory;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BlurMaskFilter;
@@ -9,11 +10,17 @@ import android.graphics.EmbossMaskFilter;
 import android.graphics.MaskFilter;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class PaintView extends View {
@@ -38,6 +45,7 @@ public class PaintView extends View {
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
 
     public PaintView(Context context) {
+
         this(context, null);
     }
 
@@ -53,7 +61,7 @@ public class PaintView extends View {
         mPaint.setXfermode(null);
         mPaint.setAlpha(0xff);
 
-        mEmboss = new EmbossMaskFilter(new float[] {1, 1, 1}, 0.4f, 6, 3.5f);
+        mEmboss = new EmbossMaskFilter(new float[]{1, 1, 1}, 0.4f, 6, 3.5f);
         mBlur = new BlurMaskFilter(5, BlurMaskFilter.Blur.NORMAL);
 
     }
@@ -112,7 +120,7 @@ public class PaintView extends View {
             else if (fp.blur)
 
                 mPaint.setMaskFilter(mBlur);
-                mCanvas.drawPath(fp.path, mPaint);
+            mCanvas.drawPath(fp.path, mPaint);
 
         }
 
@@ -150,16 +158,16 @@ public class PaintView extends View {
         float x = event.getX();
         float y = event.getY();
 
-        switch(event.getAction()) {
-            case MotionEvent.ACTION_DOWN :
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
                 touchStart(x, y);
                 invalidate();
                 break;
-            case MotionEvent.ACTION_MOVE :
+            case MotionEvent.ACTION_MOVE:
                 touchMove(x, y);
                 invalidate();
                 break;
-            case MotionEvent.ACTION_UP :
+            case MotionEvent.ACTION_UP:
                 touchUp();
                 invalidate();
                 break;
@@ -170,4 +178,27 @@ public class PaintView extends View {
 
     }
 
+    public Canvas getCanvas(){
+        //this.mCanvas = mCanvas;
+        return mCanvas;
+    }
 }
+
+//implements serializable
+//
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//       outState.putSerializable("canvas", mCanvas);
+//    }
+//}
+//
+//public class TheCanvas implements Serializable{
+//    private  PaintView myCanvas;
+//    public void setParent(PaintView myCanvas){
+//        myCanvas = myCanvas;
+//    }
+//
+//    public PaintView getParent(){
+//        return myCanvas;
+//    }
+//}
