@@ -77,6 +77,18 @@ public class PaintView extends View {
 
     }
 
+    public void init(DisplayMetrics metrics, Bitmap b) {
+        int height = metrics.heightPixels;
+        int width = metrics.widthPixels;
+        mBitmap = b;
+        mCanvas = new Canvas();
+        setmBitmap(mBitmap);
+
+        currentColor = DEFAULT_COLOR;
+        strokeWidth = BRUSH_SIZE;
+
+    }
+
     public void normal() {
         emboss = false;
         blur = false;
@@ -185,6 +197,11 @@ public class PaintView extends View {
 
     public Bitmap getmBitmap() {
         return mBitmap;
+    }
+
+    public void setmBitmap(Bitmap mBitmap) {
+        this.mBitmap = mBitmap;
+        //this.mCanvas.setBitmap(mBitmap);
     }
 }
 

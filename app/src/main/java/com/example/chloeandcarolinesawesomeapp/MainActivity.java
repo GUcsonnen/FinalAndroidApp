@@ -32,7 +32,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private PaintView paintView;
     int drawingNumber = 1;
-    static final int NOTE_CODE = 1;
+    static final int NOTE_CODE = 2;
     List<byte[]> items = new ArrayList<>();
     String TAG = "MainActivity";
     private ArrayAdapter<byte[]> arrayAdapter;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setTitle("Draw!");
         final ListView listView = new ListView(this);
 
         setContentView(listView);
@@ -103,7 +103,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(MainActivity.this, PaintingActivity.class);
-                startActivity(intent);
+                intent.putExtra("Bitmap", items.get(i));
+
+                // byte getInfo =
+               // intent.putExtra()
+                startActivityForResult(intent, NOTE_CODE);
             }
         });
         //startEditItemActivity();
@@ -111,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public String newName(){
-        String name = "My Masterpiece: " + drawingNumber;
+        String name = "My Masterspiece: " + drawingNumber;
         drawingNumber++;
         return name;
     }
@@ -149,9 +153,14 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == NOTE_CODE && resultCode == Activity.RESULT_OK){
             try {
                 items.add(data.getByteArrayExtra("Bitmap"));
-                //String myNewName = newName();
-                //items.add(myNewName);
+               // String myNewName = newName();
+               // items.add(myNewName);
                 //Log.d(TAG, "in on activity if " + myNewName);
+              //byte[] myInfo = (data.getByteArrayExtra("Bitmap"));
+              //byte info = myInfo[0];
+              //byte[] myBite = myInfo
+             //items.add(info);
+                //Log.d(TAG, "byte item 1: " + info + " " + myInfo.length);
 
                 arrayAdapter.notifyDataSetChanged();
             } catch (NullPointerException e) {
