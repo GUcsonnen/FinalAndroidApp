@@ -24,6 +24,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class PaintView extends View {
+    public static final int MODE_BLANK = 1;
+    public static final int MODE_EXTERNAL = 2;
 
     public static int BRUSH_SIZE = 20;
     public static final int DEFAULT_COLOR = Color.GREEN;
@@ -43,6 +45,7 @@ public class PaintView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private Paint mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+    private int mode;
 
     public PaintView(Context context) {
 
@@ -67,6 +70,7 @@ public class PaintView extends View {
     }
 
     public void init(DisplayMetrics metrics) {
+        mode = MODE_BLANK;
         int height = metrics.heightPixels;
         int width = metrics.widthPixels;
         mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
@@ -78,13 +82,15 @@ public class PaintView extends View {
     }
 
     public void init(DisplayMetrics metrics, Bitmap b) {
+        mode = MODE_EXTERNAL;
         int height = metrics.heightPixels;
         int width = metrics.widthPixels;
         mBitmap = b;
-        mCanvas = new Canvas();
-        setmBitmap(mBitmap);
+        mCanvas = new Canvas(mBitmap);
+        //setmBitmap(mBitmap);
        // mCanvas = new Canvas(b);
         //setmBitmap(mBitmap);
+        mCanvas.drawBitmap(mBitmap, 0, 0, null);
 
         currentColor = DEFAULT_COLOR;
         strokeWidth = BRUSH_SIZE;
@@ -121,8 +127,11 @@ public class PaintView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.save();
-        mCanvas.drawColor(backgroundColor);
-
+        if(mode == MODE_BLANK) {
+            mCanvas.drawColor(backgroundColor);
+        } else {
+            mCanvas.drawBitmap(mBitmap, 0, 0, null);
+        }
         for (FingerPath fp : paths) {
 
             mPaint.setColor(fp.color);
