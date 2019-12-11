@@ -57,9 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-<<<<<<< HEAD
 
-=======
                 switch (menuItem.getItemId()) {
                     case R.id.deleteMenuItem:
                         String temp = listView.getCheckedItemPositions().toString();
@@ -69,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
                         actionMode.finish();
                         return true;
                 }
->>>>>>> 304460dfd18153d2f2d427c8be81199535fa21c5
                 return false;
             }
 
