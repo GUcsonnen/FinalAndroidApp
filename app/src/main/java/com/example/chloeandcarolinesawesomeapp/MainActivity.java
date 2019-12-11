@@ -69,18 +69,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
-                // don't need this for PA7
                 return false;
             }
 
             @Override
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-                // executes when the user clicks a CAM menu item
-                // task: switch on menu item id... try to show (log or toast) the
-                // indexes of the items that are checked
                 switch (menuItem.getItemId()) {
                     case R.id.deleteMenuItem:
-                        // hint for PA7... use ids...
                         String temp = listView.getCheckedItemPositions().toString();
                         Toast.makeText(MainActivity.this, temp, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, PaintingActivity.class);
@@ -93,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDestroyActionMode(ActionMode actionMode) {
-                // don't need this for PA7
             }
         });
 
@@ -106,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        //startEditItemActivity();
     }
 
 
