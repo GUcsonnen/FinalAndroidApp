@@ -81,8 +81,14 @@ public class PaintView extends View {
         int height = metrics.heightPixels;
         int width = metrics.widthPixels;
         mBitmap = b;
+<<<<<<< HEAD
         mCanvas = new Canvas();
         setmBitmap(mBitmap);
+=======
+        mCanvas = new Canvas(b);
+        //setmBitmap(mBitmap);
+
+>>>>>>> 304460dfd18153d2f2d427c8be81199535fa21c5
         currentColor = DEFAULT_COLOR;
         strokeWidth = BRUSH_SIZE;
 
