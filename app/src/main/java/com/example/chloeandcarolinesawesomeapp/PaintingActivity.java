@@ -47,7 +47,6 @@ public class PaintingActivity extends AppCompatActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-
         Intent intent = getIntent();
         if(intent.getByteArrayExtra("Bitmap") != null){
             Log.d(TAG, "in if: ");
@@ -57,39 +56,13 @@ public class PaintingActivity extends AppCompatActivity {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inMutable = true;
             Bitmap bmp = BitmapFactory.decodeByteArray(myArr, 0, myArr.length, options);
-            //paintView.setmBitmap(bmp);
-           // Bitmap newBMP = bmp.copy(Bitmap.Config.ARGB_8888, true);
-           // Log.d(TAG, "in if: " + newBMP);
 
             paintView.init(metrics, bmp);
-
-
-            //Bitmap b = inflater.inflate(intent.getByteArrayExtra("Bitmap"));
-            //intent.getByteArrayExtra("Bitmap") = paintView.getmBitmap();
 
         }else {
             paintView.init(metrics);
         }
         setTitle("Draw!");
-
-        //sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-
-        Button backButton = (Button)findViewById(R.id.saveButton);
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                Bitmap b = paintView.getmBitmap();
-                // Compress the Bitmap into a byteStream
-                ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-                b.compress(Bitmap.CompressFormat.PNG, 50, byteStream);
-                intent.putExtra("Bitmap", byteStream.toByteArray());
-                setResult(Activity.RESULT_OK, intent);
-                PaintingActivity.this.finish();
-            }
-        });
-
 
     }
 
@@ -112,11 +85,8 @@ public class PaintingActivity extends AppCompatActivity {
             case R.id.blur:
                 paintView.blur();
                 return true;
-            case R.id.clear:
-                paintView.clear();
-                return true;
             case R.id.color_red:
-                paintView.changeColor(Color.RED);
+                paintView.changeColor(Color.GREEN);
                 return true;
             case R.id.color_blue:
                 paintView.changeColor(Color.BLUE);
@@ -128,6 +98,17 @@ public class PaintingActivity extends AppCompatActivity {
                 paintView.changeColor(Color.WHITE);
                 paintView.normal();
                 return true;
+            case R.id.saveButton:
+                Intent intent = new Intent();
+                Bitmap b = paintView.getmBitmap();
+                // Compress the Bitmap into a byteStream
+                ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+                b.compress(Bitmap.CompressFormat.PNG, 50, byteStream);
+                intent.putExtra("Bitmap", byteStream.toByteArray());
+                setResult(Activity.RESULT_OK, intent);
+                PaintingActivity.this.finish();
+                return true;
+
         }
 
         return super.onOptionsItemSelected(item);

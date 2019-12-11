@@ -1,42 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <menu />
     <item
         android:id="@+id/normal"
         android:title="Normal style"
         app:showAsAction="never"/>
-
     <item
         android:id="@+id/emboss"
         android:title="Emboss style"
         app:showAsAction="never"
         />
-
     <item
         android:id="@+id/blur"
         android:title="Blur style"
         app:showAsAction="never"
         />
-
     <item
         android:id="@+id/color_red"
+        android:icon="@drawable/button_green"
         android:title="Red"
-        android:icon="@drawable/red_circle"
-        app:showAsAction="always"/>
-
+        app:showAsAction="always" />
     <item
         android:id="@+id/color_blue"
         android:title="Blue"
         android:icon="@drawable/blue_circle"
         app:showAsAction="always"/>
-
     <item
         android:id="@+id/color_black"
         android:title="Black"
         android:icon="@drawable/black_circle"
         app:showAsAction="always"/>
-
     <item
         android:id="@+id/eraser"
         android:title="Eraser"
@@ -47,12 +40,4 @@
         android:title="Eraser"
         android:icon="@drawable/floppy_disk"
         app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/clear"
-        android:title="Clear"
-        android:icon="@android:drawable/ic_menu_delete"
-        app:showAsAction="ifRoom"
-        ></item>
-
 </menu>

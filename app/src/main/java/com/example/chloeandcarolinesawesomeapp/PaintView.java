@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class PaintView extends View {
 
     public static int BRUSH_SIZE = 20;
-    public static final int DEFAULT_COLOR = Color.RED;
+    public static final int DEFAULT_COLOR = Color.GREEN;
     public static final int DEFAULT_BG_COLOR = Color.WHITE;
     private static final float TOUCH_TOLERANCE = 4;
     private float mX, mY;
@@ -83,7 +83,6 @@ public class PaintView extends View {
         mBitmap = b;
         mCanvas = new Canvas();
         setmBitmap(mBitmap);
-
         currentColor = DEFAULT_COLOR;
         strokeWidth = BRUSH_SIZE;
 
