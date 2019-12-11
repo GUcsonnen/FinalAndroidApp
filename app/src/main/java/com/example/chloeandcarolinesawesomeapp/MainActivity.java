@@ -35,46 +35,6 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_activated_1,
                 items);
         listView.setAdapter(arrayAdapter);
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
-            @Override
-            public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
-                int numChecked = listView.getCheckedItemCount();
-                actionMode.setTitle(numChecked + " selected");
-            }
-
-            @Override
-            public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-                MenuInflater menuInflater = getMenuInflater();
-                menuInflater.inflate(R.menu.contextual_action_menu, menu);
-                return true;
-            }
-
-            @Override
-            public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
-                return false;
-            }
-
-            @Override
-            public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-
-                switch (menuItem.getItemId()) {
-                    case R.id.deleteMenuItem:
-                        String temp = listView.getCheckedItemPositions().toString();
-                        Toast.makeText(MainActivity.this, temp, Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, PaintingActivity.class);
-                        startActivity(intent);
-                        actionMode.finish();
-                        return true;
-                }
-                return false;
-            }
-
-            @Override
-            public void onDestroyActionMode(ActionMode actionMode) {
-            }
-        });
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
