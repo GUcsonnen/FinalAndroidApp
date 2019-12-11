@@ -4,6 +4,7 @@
 
 package com.example.chloeandcarolinesawesomeapp;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -11,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ import android.widget.GridLayout;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.util.zip.Inflater;
 
 public class PaintingActivity extends AppCompatActivity {
     private PaintView paintView;
@@ -44,9 +47,31 @@ public class PaintingActivity extends AppCompatActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        paintView.init(metrics);
+        Intent intent = getIntent();
+        if(intent.getByteArrayExtra("Bitmap") != null){
+            Log.d(TAG, "in if: ");
 
-        sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+            byte[] myArr = intent.getByteArrayExtra("Bitmap");
+            Inflater inflater = new Inflater();
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inMutable = true;
+            Bitmap bmp = BitmapFactory.decodeByteArray(myArr, 0, myArr.length, options);
+            //paintView.setmBitmap(bmp);
+           // Bitmap newBMP = bmp.copy(Bitmap.Config.ARGB_8888, true);
+           // Log.d(TAG, "in if: " + newBMP);
+
+            paintView.init(metrics, bmp);
+
+
+            //Bitmap b = inflater.inflate(intent.getByteArrayExtra("Bitmap"));
+            //intent.getByteArrayExtra("Bitmap") = paintView.getmBitmap();
+
+        }else {
+            paintView.init(metrics);
+        }
+        setTitle("Draw!");
+
+        //sharedPreferences = getPreferences(Context.MODE_PRIVATE);
 
         Button backButton = (Button)findViewById(R.id.saveButton);
 
@@ -63,6 +88,8 @@ public class PaintingActivity extends AppCompatActivity {
                 PaintingActivity.this.finish();
             }
         });
+
+
     }
 
     @Override
@@ -105,6 +132,7 @@ public class PaintingActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
+
 
 
 }

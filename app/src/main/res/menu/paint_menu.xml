@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <menu />
     <item
         android:id="@+id/normal"
         android:title="Normal style"
@@ -42,10 +43,16 @@
         android:icon="@drawable/eraser"
         app:showAsAction="always"/>
     <item
+        android:id="@+id/saveButton"
+        android:title="Eraser"
+        android:icon="@drawable/floppy_disk"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/clear"
         android:title="Clear"
         android:icon="@android:drawable/ic_menu_delete"
         app:showAsAction="ifRoom"
-        />
+        ></item>
 
 </menu>
